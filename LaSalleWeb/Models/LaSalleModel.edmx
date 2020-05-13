@@ -1,0 +1,354 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="LaSalleModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="LaSalleModelStoreContainer">
+    <EntitySet Name="Tutores" EntityType="LaSalleModel.Store.Tutores" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Alumnos" EntityType="LaSalleModel.Store.Alumnos" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Docentes" EntityType="LaSalleModel.Store.Docentes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Asignaturas" EntityType="LaSalleModel.Store.Asignaturas" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Notas" EntityType="LaSalleModel.Store.Notas" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="TutorAlumno" Association="LaSalleModel.Store.TutorAlumno">
+      <End Role="Tutor" EntitySet="Tutores" />
+      <End Role="Alumno" EntitySet="Alumnos" />
+    </AssociationSet>
+    <AssociationSet Name="AlumnoNota" Association="LaSalleModel.Store.AlumnoNota">
+      <End Role="Alumno" EntitySet="Alumnos" />
+      <End Role="Nota" EntitySet="Notas" />
+    </AssociationSet>
+    <AssociationSet Name="DocenteAsignatura" Association="LaSalleModel.Store.DocenteAsignatura">
+      <End Role="Docente" EntitySet="Docentes" />
+      <End Role="Asignatura" EntitySet="Asignaturas" />
+    </AssociationSet>
+    <AssociationSet Name="AsignaturaNota" Association="LaSalleModel.Store.AsignaturaNota">
+      <End Role="Asignatura" EntitySet="Asignaturas" />
+      <End Role="Nota" EntitySet="Notas" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Tutores">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Apellido" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Telf" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Alumnos">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Carnet" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Apellido" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Celular" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FechaNac" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="TutorId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Docentes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NombreCompleto" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="INSS" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="SalarioBase" Type="decimal" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Asignaturas">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Codigo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Creditos" Type="smallint" Nullable="false" />
+    <Property Name="DocenteId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Notas">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Acumulado" Type="decimal" Nullable="false" />
+    <Property Name="Examen" Type="decimal" Nullable="false" />
+    <Property Name="AlumnoId" Type="int" Nullable="false" />
+    <Property Name="AsignaturaId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="TutorAlumno">
+    <End Role="Tutor" Type="LaSalleModel.Store.Tutores" Multiplicity="1" />
+    <End Role="Alumno" Type="LaSalleModel.Store.Alumnos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tutor">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Alumno">
+        <PropertyRef Name="TutorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AlumnoNota">
+    <End Role="Alumno" Type="LaSalleModel.Store.Alumnos" Multiplicity="1" />
+    <End Role="Nota" Type="LaSalleModel.Store.Notas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Alumno">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Nota">
+        <PropertyRef Name="AlumnoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DocenteAsignatura">
+    <End Role="Docente" Type="LaSalleModel.Store.Docentes" Multiplicity="1" />
+    <End Role="Asignatura" Type="LaSalleModel.Store.Asignaturas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Docente">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Asignatura">
+        <PropertyRef Name="DocenteId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AsignaturaNota">
+    <End Role="Asignatura" Type="LaSalleModel.Store.Asignaturas" Multiplicity="1" />
+    <End Role="Nota" Type="LaSalleModel.Store.Notas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Asignatura">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Nota">
+        <PropertyRef Name="AsignaturaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="LaSalleModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="LaSalleModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Tutores" EntityType="LaSalleModel.Tutor" />
+          <EntitySet Name="Alumnos" EntityType="LaSalleModel.Alumno" />
+          <EntitySet Name="Docentes" EntityType="LaSalleModel.Docente" />
+          <EntitySet Name="Asignaturas" EntityType="LaSalleModel.Asignatura" />
+          <EntitySet Name="Notas" EntityType="LaSalleModel.Nota" />
+          <AssociationSet Name="TutorAlumno" Association="LaSalleModel.TutorAlumno">
+            <End Role="Tutor" EntitySet="Tutores" />
+            <End Role="Alumno" EntitySet="Alumnos" />
+          </AssociationSet>
+          <AssociationSet Name="AlumnoNota" Association="LaSalleModel.AlumnoNota">
+            <End Role="Alumno" EntitySet="Alumnos" />
+            <End Role="Nota" EntitySet="Notas" />
+          </AssociationSet>
+          <AssociationSet Name="DocenteAsignatura" Association="LaSalleModel.DocenteAsignatura">
+            <End Role="Docente" EntitySet="Docentes" />
+            <End Role="Asignatura" EntitySet="Asignaturas" />
+          </AssociationSet>
+          <AssociationSet Name="AsignaturaNota" Association="LaSalleModel.AsignaturaNota">
+            <End Role="Asignatura" EntitySet="Asignaturas" />
+            <End Role="Nota" EntitySet="Notas" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Tutor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" />
+          <Property Name="Apellido" Type="String" Nullable="false" />
+          <Property Name="Email" Type="String" Nullable="false" />
+          <Property Name="Telf" Type="String" Nullable="false" />
+          <NavigationProperty Name="Alumnos" Relationship="LaSalleModel.TutorAlumno" FromRole="Tutor" ToRole="Alumno" />
+        </EntityType>
+        <EntityType Name="Alumno">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Carnet" Type="String" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" />
+          <Property Name="Apellido" Type="String" Nullable="false" />
+          <Property Name="Email" Type="String" Nullable="false" />
+          <Property Name="Celular" Type="String" Nullable="false" />
+          <Property Name="FechaNac" Type="String" Nullable="false" />
+          <NavigationProperty Name="Tutor" Relationship="LaSalleModel.TutorAlumno" FromRole="Alumno" ToRole="Tutor" />
+          <Property Name="TutorId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Notas" Relationship="LaSalleModel.AlumnoNota" FromRole="Alumno" ToRole="Nota" />
+        </EntityType>
+        <EntityType Name="Docente">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreCompleto" Type="String" Nullable="false" />
+          <Property Name="Email" Type="String" Nullable="false" />
+          <Property Name="INSS" Type="String" Nullable="false" />
+          <Property Name="SalarioBase" Type="Decimal" Nullable="false" />
+          <NavigationProperty Name="Asignaturas" Relationship="LaSalleModel.DocenteAsignatura" FromRole="Docente" ToRole="Asignatura" />
+        </EntityType>
+        <EntityType Name="Asignatura">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" />
+          <Property Name="Creditos" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="Docente" Relationship="LaSalleModel.DocenteAsignatura" FromRole="Asignatura" ToRole="Docente" />
+          <Property Name="DocenteId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Notas" Relationship="LaSalleModel.AsignaturaNota" FromRole="Asignatura" ToRole="Nota" />
+        </EntityType>
+        <EntityType Name="Nota">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Acumulado" Type="Decimal" Nullable="false" />
+          <Property Name="Examen" Type="Decimal" Nullable="false" />
+          <NavigationProperty Name="Alumno" Relationship="LaSalleModel.AlumnoNota" FromRole="Nota" ToRole="Alumno" />
+          <Property Name="AlumnoId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Asignatura" Relationship="LaSalleModel.AsignaturaNota" FromRole="Nota" ToRole="Asignatura" />
+          <Property Name="AsignaturaId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="TutorAlumno">
+          <End Type="LaSalleModel.Tutor" Role="Tutor" Multiplicity="1" />
+          <End Type="LaSalleModel.Alumno" Role="Alumno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tutor">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Alumno">
+              <PropertyRef Name="TutorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AlumnoNota">
+          <End Type="LaSalleModel.Alumno" Role="Alumno" Multiplicity="1" />
+          <End Type="LaSalleModel.Nota" Role="Nota" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Alumno">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Nota">
+              <PropertyRef Name="AlumnoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DocenteAsignatura">
+          <End Type="LaSalleModel.Docente" Role="Docente" Multiplicity="1" />
+          <End Type="LaSalleModel.Asignatura" Role="Asignatura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Docente">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Asignatura">
+              <PropertyRef Name="DocenteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AsignaturaNota">
+          <End Type="LaSalleModel.Asignatura" Role="Asignatura" Multiplicity="1" />
+          <End Type="LaSalleModel.Nota" Role="Nota" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Asignatura">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Nota">
+              <PropertyRef Name="AsignaturaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="LaSalleModelStoreContainer" CdmEntityContainer="LaSalleModelContainer">
+    <EntitySetMapping Name="Tutores">
+      <EntityTypeMapping TypeName="IsTypeOf(LaSalleModel.Tutor)">
+        <MappingFragment StoreEntitySet="Tutores">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Telf" ColumnName="Telf" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Alumnos">
+      <EntityTypeMapping TypeName="IsTypeOf(LaSalleModel.Alumno)">
+        <MappingFragment StoreEntitySet="Alumnos">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Carnet" ColumnName="Carnet" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Celular" ColumnName="Celular" />
+          <ScalarProperty Name="FechaNac" ColumnName="FechaNac" />
+          <ScalarProperty Name="TutorId" ColumnName="TutorId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Docentes">
+      <EntityTypeMapping TypeName="IsTypeOf(LaSalleModel.Docente)">
+        <MappingFragment StoreEntitySet="Docentes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="NombreCompleto" ColumnName="NombreCompleto" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="INSS" ColumnName="INSS" />
+          <ScalarProperty Name="SalarioBase" ColumnName="SalarioBase" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Asignaturas">
+      <EntityTypeMapping TypeName="IsTypeOf(LaSalleModel.Asignatura)">
+        <MappingFragment StoreEntitySet="Asignaturas">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Creditos" ColumnName="Creditos" />
+          <ScalarProperty Name="DocenteId" ColumnName="DocenteId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Notas">
+      <EntityTypeMapping TypeName="IsTypeOf(LaSalleModel.Nota)">
+        <MappingFragment StoreEntitySet="Notas">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Acumulado" ColumnName="Acumulado" />
+          <ScalarProperty Name="Examen" ColumnName="Examen" />
+          <ScalarProperty Name="AlumnoId" ColumnName="AlumnoId" />
+          <ScalarProperty Name="AsignaturaId" ColumnName="AsignaturaId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

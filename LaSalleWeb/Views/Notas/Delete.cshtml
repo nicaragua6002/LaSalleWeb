@@ -1,0 +1,56 @@
+﻿@model LaSalleWeb.Models.Nota
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Nota</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Acumulado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Acumulado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Examen)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Examen)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Alumno.Carnet)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Alumno.Carnet)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Asignatura.Codigo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Asignatura.Codigo)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

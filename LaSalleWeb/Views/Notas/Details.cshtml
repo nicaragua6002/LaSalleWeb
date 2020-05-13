@@ -1,0 +1,50 @@
+﻿@model LaSalleWeb.Models.Nota
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Nota</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Acumulado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Acumulado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Examen)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Examen)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Alumno.Carnet)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Alumno.Carnet)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Asignatura.Codigo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Asignatura.Codigo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
