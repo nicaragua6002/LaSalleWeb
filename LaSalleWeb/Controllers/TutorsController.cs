@@ -10,9 +10,10 @@ using LaSalleWeb.Models;
 
 namespace LaSalleWeb.Controllers
 {
+    [Authorize]
     public class TutorsController : Controller
     {
-        private LaSalleModelContainer db = new LaSalleModelContainer();
+       private LaSalleModelContainer db = new LaSalleModelContainer();
 
         // GET: Tutors
         public ActionResult Index()

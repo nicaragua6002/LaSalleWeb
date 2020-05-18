@@ -10,6 +10,7 @@ using LaSalleWeb.Models;
 
 namespace LaSalleWeb.Controllers
 {
+    [Authorize]
     public class NotasController : Controller
     {
         private LaSalleModelContainer db = new LaSalleModelContainer();
